@@ -1,0 +1,1330 @@
+\documentclass[8pt]{extarticle}
+
+
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[table,x11names,dvipsnames,table]{xcolor}
+\usepackage{caption}
+\usepackage{multicol}
+\usepackage{colortbl}
+\usepackage{parskip}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usepackage{makecell}    % Needed for the Gape command
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{textcomp}
+
+
+% --------------------------------------
+% Set the margins
+% --------------------------------------
+\usepackage[top=2cm,left=1cm,right=1cm,bottom=2cm]{geometry}
+
+% --------------------------------------
+% Multicolumn figure
+% --------------------------------------
+\newenvironment{Figure}
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+
+    
+
+
+% --------------------------------------
+% Define the colors
+% --------------------------------------
+\definecolor{BlockBackground}{HTML}{E0F4E0}
+
+\definecolor{Header}{HTML}{35B983}
+\definecolor{row1}{HTML}{BFEFDA}
+\rowcolors{2}{row1!75}{white}
+\newcommand{\coloredTablesOn}{\rowcolors{2}{row1!75}{white}} %coloro le tabelle in modo alternato
+\newcommand{\coloredTablesOff}{\rowcolors{2}{}{}} %non coloro le tabelle
+% --------------------------------------
+% Create Fancytable
+% --------------------------------------
+\newcommand{\chline}[1]{\arrayrulecolor{#1}\hline}
+
+
+\setlength{\tabcolsep}{10pt}      % Separation between columns in the tables
+\setlength{\arrayrulewidth}{2pt}  % Width of the rules for the tables
+
+%%Standard fancy -------------------------------
+\newenvironment{fancytable}[1]
+{\def\arraystretch{1.3}
+    \tabularx{\linewidth}{cX}
+    \rowcolor{Header}
+    \multicolumn{2}{c}{\textcolor{white}{\large\bfseries \Gape[1mm][1mm]{#1}}}\\}
+{\endtabularx}
+
+%%Full fancy -------------------------------
+\newenvironment{fullfancytable}[1]
+{\def\arraystretch{1.3}
+    \tabularx{\linewidth}{cX}
+    \rowcolor{Header}
+    \multicolumn{2}{c}{\textcolor{white}{\large\bfseries \Gape[1mm][1mm]{#1}}}\\}
+{\endtabularx}
+
+%%Splitted fancy -------------------------------
+\newenvironment{splittedfancytable}[2]
+{\def\arraystretch{1.3}
+    \tabularx{\linewidth}{XX}
+    \rowcolor{Header}
+    
+    \textcolor{white}{\large\bfseries #1}& \textcolor{white}{\large\bfseries #2}\\
+}
+{\endtabularx}
+
+% --------------------------------------
+% Set the header/footer
+% --------------------------------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\lfoot{\textbf{Matteo Franceschini}}
+\cfoot{\textbf{Politecnico di Milano}}
+\rfoot{\textbf{Updated:} \today}
+\renewcommand{\footrulewidth}{0.4pt}
+\renewcommand{\headrulewidth}{0pt}
+
+% -------------------------------------------------
+% Page header
+% -------------------------------------------------
+\def\fullwidthheader#1{
+    \begin{tikzpicture}[overlay, remember picture]
+    \draw let \p1 = (current page.west),%
+    \p2 = (current page.east) in
+    node[minimum width=\x2-\x1,
+    minimum height=2cm,
+    draw,
+    rectangle,
+    fill=Header,
+    draw=Header,
+    anchor=north west,
+    align=left,
+    text width=\x2-\x1]
+    at ($(current page.north west)$)
+    {\fontsize{20}{22}\selectfont\bfseries\color{white}\quad #1};
+    \end{tikzpicture}
+}
+
+% -------------------------------------------------
+% Custom Chapters
+% -------------------------------------------------
+
+\newcommand{\newtopic}[1] %----------NEW TOPIC
+{
+\begin{center}
+    \vspace*{0.5cm}
+    {\Huge\bfseries #1}
+    \vspace*{0.5cm}
+\end{center}
+}
+
+\newcommand{\newsubtopic}[1] %-----------NEW SUBTOPIC
+{
+    \vspace*{0.5cm}
+    {\Large\bfseries #1}
+}
+
+\newcommand{\newsubsubtopic}[1] %-----------NEW SUBSUBTOPIC
+{
+    \vspace*{0.2cm}
+    \underline{\large \textbf{#1}}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BEGIN DOCUMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+  \fullwidthheader{RF MEASUREMENTS\,\,CHEAT\,\,SHEET}
+
+\newtopic{Transmission Lines Parameters}
+
+%\begin{center}
+%    \vspace*{0.5cm}
+%    {\Large\bfseries Transmission Lines Parameters}
+%\end{center}
+\begin{multicols}{2}
+\centering
+
+\begin{fancytable}{General}
+    $ Z_0=\eta=\frac{E_0}{H_0}=\frac{j\omega\mu}{\gamma}$& Intrinsic impedance of the medium, the ratio between the electric and the magnetic field, measured in ohm.\\ 
+    $\lambda=\frac{2\pi}{\beta}$& The wavelength is the distance between two maximums or minimums on the sinusoid of the progressive or regressive wave.\\
+    $\gamma= \sqrt{j\omega\mu(\sigma+j\omega\epsilon)}$& In which 
+    \begin{itemize}
+        \item $\mu$ is the magnetic permeability 
+        \item $\sigma$ the conducibility
+        \item $\epsilon$ is the permittivity
+    \end{itemize}\\ 
+    $\gamma=\alpha+j\beta$&In which 
+    \begin{itemize}
+        \item $\alpha$ is the attenuation constant in $\left[ \frac{Np}{m}\right] $
+        \item $\beta$ is the phase constant in $\left[ \frac{rad}{m}\right] $
+    \end{itemize}\\
+    $tan(\phi)=\frac{\sigma}{\omega\epsilon}$ & It can be used to understand whether a material is a good dielectric ($tan(\phi)<<1$) or a good conductor ($tan(\phi)>>1$)\\
+    $\Gamma=\frac{Z_{load}-Z_0}{Z_{load}-Z_0}$& Reflection coefficient. A short circuit gives $\Gamma=-1$, while and open has $\Gamma=1$\\
+    \chline{Header}
+\end{fancytable}
+
+
+
+
+\begin{fancytable}{Lossless Transmission Line}
+    $\sigma=0$& This consist in having $\alpha=0$ and $\beta=\omega\sqrt{\mu\epsilon}$ \\ 
+    $\eta=\sqrt{\frac{\mu}{\gamma}}$& The intrinsic impedance becomes a \textbf{real} number\\
+    $\nu=\frac{\omega}{\beta}=\frac{1}{\sqrt{\mu\epsilon}}$& Propagation speed\\
+    $\lambda=\frac{\nu}{f}$& The frequency rises but widens wrt the propagation speed and therefore the medium.\\ 
+    \chline{Header}
+\end{fancytable}
+
+\begin{fancytable}{Lossy Transmission Line}
+    $\sigma\neq0$& This consist in having $\alpha=Re\left| \gamma\right| $ and  $\beta= Im \left| \gamma\right|$ \\
+    $\eta=\sqrt{\frac{j\omega\mu}{\sigma+j\omega\epsilon}}$& The intrinsic impedance has a phase that can vary between 0 and 45 degrees.\\
+    $\nu=\frac{\omega}{\beta}$& Propagation speed has the same definition, but obiously different values than in the lossless case.\\
+    $\lambda=\frac{\nu}{f}=\frac{2\pi}{\beta}$& The frequency rises but widens wrt the propagation speed and therefore the medium.\\ 
+    \chline{Header}
+\end{fancytable}
+
+\end{multicols}
+
+\newtopic{The scattering Matrix}
+
+The relation between the vectors a and b, whose i-th components are the power waves $a_{i}$ and $b_{i}$ respectively, can be expressed using the S-parameter matrix S:
+$b=S\cdot a$
+
+\coloredTablesOff
+\begin{multicols}{2}
+    
+\begin{equation}
+   {\begin{pmatrix}b_{1}\\ b_{2}\end{pmatrix}}={\begin{pmatrix}\color{red}S_{11}&\color{cyan}S_{12}\\\color{cyan}S_{21}&\color{red}S_{22}\end{pmatrix}}
+ {\begin{pmatrix}a_{1}\\a_{2}\end{pmatrix}}
+\end{equation}
+\begin{Figure}
+    \centering
+    \includegraphics[width=0.5\linewidth]{gfx/twoport}
+    \captionof{figure}{The circuit}
+    \label{fig:circuit_image}
+\end{Figure}
+
+\begin{small}
+\begin{itemize}
+    \item[] \textit{\color{red}{S11 FW Reflection (Input match)}}
+    \item[] \textit{\color{red}{S22 RW Reflection (Output match)}}
+    \item[] \textit{\color{cyan}{S21 FW Transmission (Gain/loss)}}
+    \item[] \textit{\color{cyan}{S12 RW Transmission (Isolation)}}
+\end{itemize}
+\end{small}
+
+\end{multicols}
+
+
+
+
+
+
+
+\coloredTablesOn
+\begin{fancytable}{Important Parameters}
+    $VSWR=\frac{1+\left| \Gamma\right| }{1-\left| \Gamma\right| }=\frac{1+\left| S_{11}\right| }{1-\left| S_{11}\right| }$ & Input VSWR, the ratio of the highest and the lowest peak of the standing wave.\\
+    $RL=-20 log_{10}(\left| S_{11}\right| )$&Return loss, the amount of power reflected.\\
+    $IG_{Forward}=20 log_{10}(\left| S_{21}\right| )$& Forward insertion gain or attenuation\\
+    $IG_{Reverse}=20 log_{10}(\left| S_{12}\right| )$& Reverse insertion gain or attenuation\\
+    \chline{Header}
+\end{fancytable}
+\begin{fancytable}{Important Proprieties}
+    \texttt{LOSSLESS} & The scattering matrix of a lossless network is \textbf{unitary}, $\left| det[S] \right|=1$, that is, $P_{out}=P_{in}$ or $S\cdot S^T=I$. It is also lossless if the transmission parameters (like $S_{12}$) are purely complex. \\
+    \texttt{RECIPROCAL}& It is satisfied if there are \textbf{no anisotropic elements}. In this case, the matrix is symmetric: $A^T=A$\\
+    \texttt{MATCHED} & A network is matched when there are no differences of impedance along the path, and therefore the diagonal of the S matrix is zero.\\
+    \chline{Header}
+\end{fancytable}
+
+
+
+
+
+\pagebreak
+\newtopic{3-Port matching theorem}
+
+It is not possibile to realize a 3-port device without loss, reciprocal and completely matched.
+
+Let's consider the lossles and matched case (also known as circulator), therefore we can have two different scenarios, due to the fact that $S\cdot S^T=I$. The input power at one port goes out from the next port.
+\coloredTablesOff
+\begin{multicols}{2}
+    \centering
+    \textbf{Clockwise circulator}
+    \begin{equation}
+    {\begin{pmatrix}
+        \color{red}{S_{11}} &\color{cyan}{S_{21}}   &\color{red}S_{33}\\
+        \color{red}{S_{12}} &\color{red}{S_{22}}    &\color{cyan}S_{32}\\
+        \color{cyan}S_{13}  &\color{red}S_{23}     &\color{red}{S_{33}}\\
+        \end{pmatrix}} 
+    \to
+    {\begin{pmatrix}
+        0 & e^{j\alpha}  &0\\
+        0&0   &e^{j\beta}  \\
+        e^{j\gamma}    &0    &0\\
+        \end{pmatrix}}
+    \end{equation}
+    
+     \textbf{Counterclockwise circulator}
+     \begin{equation}
+     {\begin{pmatrix}
+         \color{red}{S_{11}} &\color{red}{S_{21}}   &\color{cyan}S_{33}\\
+         \color{cyan}{S_{12}} &\color{red}{S_{22}}    &\color{red}S_{32}\\
+         \color{red}S_{13}  &\color{cyan}S_{23}     &\color{red}{S_{33}}\\
+         \end{pmatrix}} 
+     \to
+     {\begin{pmatrix}
+         0 & 0  &e^{j\alpha}\\
+         e^{j\beta}&0   &0  \\
+        0  & e^{j\gamma}      &0\\
+         \end{pmatrix}}
+     \end{equation}
+\end{multicols}
+
+\newtopic{4-Port matching theorem}
+
+Let's consider a 4-port device, \textbf{reciprocal} and \textbf{lossless}. If two ports are matched and not coupled (there is no power transfer between them), the other two ports are also matched and not coupled. A four port device of this kind would have a Scattering matrix like the following
+
+\begin{multicols}{2}
+    \begin{Figure}
+        \centering
+        \includegraphics[width=0.5\linewidth]{gfx/4port}
+        \captionof{figure}{The 4 port circuit}
+        \label{fig:4port}
+    \end{Figure}
+    \begin{equation}
+    {\begin{pmatrix}
+        S_{11}  &S_{21} &S_{31}&S_{41}  \\
+        S_{12}  &S_{22} &S_{32}&S_{24}  \\
+        S_{13}  &S_{23} &0     &0       \\
+        S_{14}  &S_{24} &0     &0
+        \end{pmatrix}}
+    \end{equation}
+    To have it lossless ($S\cdot S^T=I$) it is needed $\left| S_{11}\right|^2=\left| S_{12}\right|^2=\left| S_{22}\right|^2=0 $
+\end{multicols}
+
+The real device that satisfies the 4-port matching theorem is the directional coupler in Figure \ref{fig:4port}.
+
+
+\begin{multicols}{2}
+    \begin{equation}
+    {\begin{pmatrix}
+        S_{11}  &S_{21} &S_{31}&S_{41}\\
+        S_{12}  &S_{22} &S_{32}&S_{24}\\
+        S_{13}  &S_{23} &S_{33}&S_{43}\\
+        S_{14}  &S_{24} &S_{34}&S_{44}
+        \end{pmatrix}}
+    \end{equation}
+    \begin{small}
+        \begin{itemize}
+            \item[] \textit{\color{red}{Reflection Coefficients}}
+            \item[] \textit{\color{cyan}{Transmission Coefficients}}
+        \end{itemize}
+    \end{small}
+\end{multicols}
+
+\newpage
+  \fullwidthheader{RF MEASUREMENTS\,\,EXERCISES\,\,TIP\& TRICKS}
+
+
+
+
+\newtopic{Directional Coupler}
+
+The scattering matrix is
+\begin{multicols}{2}
+\begin{equation}
+{{\begin{pmatrix}
+        S_{11}  &S_{21} &S_{31}&S_{41}\\
+        S_{12}  &S_{22} &S_{32}&S_{42}\\
+        S_{13}  &S_{23} &S_{33}&S_{43}\\
+        S_{14}  &S_{24} &S_{34}&S_{44}
+        \end{pmatrix}}
+    \to
+    \begin{pmatrix}
+    0 &h &0&k\\
+    h  &0 &k&0\\
+    0 &k &0&h\\
+    k  &0 &h&0
+    \end{pmatrix}}
+\end{equation}
+with:
+
+$k=S_{14}=S_{41}$ the coupling coefficient
+
+$h=S_{21}=S_{12}=\sqrt{1-\left|k \right|^2 }e^{j\varphi}$ the transmission coefficient.
+\end{multicols}
+
+\vspace{1mm}
+\begin{multicols}{2}
+    \coloredTablesOn
+    \begin{fullfancytable}{Important Parameters}
+        \texttt{Transmission loss} &$L=10 log_{10}(\frac{P_{in}}{P_{out}})=20 log_{10}\left|\frac{1}{S_{21}} \right|$\\
+        \texttt{Isolation} &$I=10 log_{10}(\frac{P_{in}}{P_{3}})=20 log_{10}\left|\frac{1}{S_{31}} \right|$\\
+        \texttt{Coupling Factor}& $K=C=10 log_{10}(\frac{P_{in}}{P_{4}})=20 log_{10}\left|\frac{1}{S_{41}} \right| $ \\
+        \texttt{Directivity }&  $D(dB)= I(dB)-K(dB)-L(dB) =20log_{10}\left|\frac{S_{21}\cdot S_{32}}{S_{31}} \right| $ \\
+        \texttt{VSWR}&$VSWR=\frac{1+\left| \Gamma\right| }{1-\left| \Gamma\right| }=\frac{1+\left| S_{11}\right| }{1-\left| S_{11}\right| }$\\
+        \chline{Header}
+    \end{fullfancytable}
+    \coloredTablesOff
+    \begin{Figure}
+        \centering
+        \includegraphics[width=0.8\linewidth]{gfx/directionalcoupler}
+        \captionof{figure}{The 4 port circuit}
+        \label{fig:4port}
+    \end{Figure}
+\end{multicols}
+\newsubtopic{Creating the scattering matrix}
+
+If it's ideal (), $S_{31}=S_{42}$.
+
+If it's \textbf{lossless}, $S*S^*=I$,  or $S_{11}^2+S_{21}^2=1$, $S_{12}^2+S_{22}^2=1$ and $S_{11}*S_{12}+S_{21}*S_{22}=0$, that is: $S_{11}^2=S_{12}^2=S_{22}^2=0$. In a lossless medium the characteristic impedance is real and the propagation constant $\gamma$ is only imaginary. In a lossy medium, on the other hand, $\gamma$ is complex and the phase is always \textgreater0.
+
+If it's \textbf{reciprocal}, it's simmetric wrt the diagonal $S_{xx}$: there are no anisotropic elements.
+
+
+\newsubtopic{Calculating the reflection coefficient at port 1}
+
+The reflection coefficient at port 1 is given by $b_1$. We can write the equations from the scattering matrix:
+\begin{equation}
+    \left\{\begin{array}{c}
+        b_1=0\cdot a_1 +h\cdot a_2 + 0\cdot a_3 +k\cdot a_4\\
+        b_2=h\cdot a_1 +0\cdot a_2 + k\cdot a_3 +0\cdot a_4\\
+        b_3=0\cdot a_1 +k\cdot a_2 + 0\cdot a_3 +h\cdot a_4\\
+        b_4=k\cdot a_1 +0\cdot a_2 + h\cdot a_3 +0\cdot a_4\\
+        
+        \end{array}  \right.
+        \to
+        \left\{\begin{array}{c}
+        b_1=h\cdot a_2 +k\cdot a_4\\
+        b_2=h\cdot a_1 +k\cdot a_3\\
+        b_3=k\cdot a_2 +h\cdot a_4\\
+        b_4=k\cdot a_1 +h\cdot a_3\\
+        \end{array}  \right.
+        \label{eq:scattering_matrix_system}
+\end{equation}
+If, for example, port 4 has a perfectly adapted load, we can simplify Eq.\ref{eq:scattering_matrix_system} by eliminating everything related with port 4, that is:
+\begin{equation}
+\left\{\begin{array}{c}
+b_1=h\cdot a_2 +k\cdot a_4\\
+b_2=h\cdot a_1 +k\cdot a_3\\
+b_3=k\cdot a_2 +h\cdot a_4\\
+b_4=k\cdot a_1 +h\cdot a_3\\
+\end{array}  \right.
+\to
+\left\{\begin{array}{l}
+b_1=h\cdot a_2 \\
+b_2=h\cdot a_1 +k\cdot a_3\\
+b_3=k\cdot a_2\\
+\end{array} 
+ \right.
+\label{eq:scattering_matrix_system_simplified}
+\end{equation}
+Once we have done this, we need to calculate the reflections on all ports that may have it (those with a perfectly matched load won't reflect). Let's suppose we have an open circuit on port 3 and a load L on port 2. We have:
+\begin{equation}
+\left\{\begin{array}{l}
+a_2=\Gamma_L\cdot b_2\\
+a_3=\Gamma_{OC}\cdot b_3=b_3\\
+
+\end{array}  \right.
+\label{eq:reflections}
+\end{equation}
+Let's do some calculation with Eq. \ref{eq:scattering_matrix_system_simplified} and \ref{eq:reflections} and we get
+\begin{equation*}
+    b_1= \frac{\Gamma_L \cdot h^2}{k^2\cdot\Gamma_L-1}\cdot a_1
+\end{equation*}
+That is, the reflection at port 1, wrt the reflection on the load:
+\begin{equation}
+    \Gamma_1=\frac{b_1}{a_1}=\frac{\Gamma_L \cdot h^2}{k^2\cdot\Gamma_L-1}
+\end{equation}
+\pagebreak
+Fun facts:
+\begin{itemize}
+    \item $\Gamma$ inverts its sign every $\lambda/4$ distance on the line
+    \item $\Gamma$ of a short circuit is $-1$, while an open has $1$.
+\end{itemize}
+\newsubtopic{Reflection Coefficient tuning}
+
+There are some possibilities:
+\begin{itemize}
+    \item $\Gamma_1=0$ is reached with $\Gamma_L=0$ and therefore the load impedance should be matched with the transmission line.
+    \item $\left. \Gamma_1\right|_{maximum}$ is obtained by calculating the partial derivative of $\Gamma_1$ wrt $\Gamma_L$ and finding the maximum.
+\end{itemize}
+
+\pagebreak
+
+\newtopic{Reflectometry}
+
+\begin{multicols}{2}
+    \coloredTablesOn
+    \begin{fullfancytable}{Ideal Reflectometer}
+        \texttt{Directivity }& Infinite, $S_{14}=0, S_{23}=0$ \\
+        \texttt{Matching of couplers} & Perfect:$\Gamma_k=0$, $S_{kk}=0$\\
+        \texttt{Matching of detectors} &Perfect:$\Gamma_3=0$,$\Gamma_4=0$, the receivers have the same characteristic impedance.\\
+        \texttt{Perfect detector}& No phase shift nor attenuation. \\
+
+        \chline{Header}
+    \end{fullfancytable}
+    \coloredTablesOff
+    \begin{Figure}
+        \centering
+        \includegraphics[width=\linewidth]{gfx/reflectometer}
+        \captionof{figure}{A reflectometer}
+        \label{fig:reflectometer}
+    \end{Figure}
+\end{multicols}
+\newsubtopic{Ideal reflectometer}
+
+The ideal reflectometer has, as listed in the table above, a number of ideal features, but it need to be calibrated anyway: in fact, the scattering parameters, the first time, are unknown.
+
+For this purpose, we just need to connect a known load, to extract them.
+
+\newsubtopic{Real reflectometer}
+\begin{multicols}{2}
+    Figure \ref{fig:reflectometer_internal} shows a reflectometer internal structure example.
+    
+    The test frequency is generated by a variable frequency Carrier Wave (CW) source and its power level is set using a variable attenuator. The position of switch SW1 sets the direction in which the test signal passes through the DUT. Initially consider that SW1 is at position 1 so that the test signal is incident on the DUT at P1 which is appropriate for measuring $S_{11}$ and $S_{21}$. \textbf{Note that DC1+splitter1 and DC2+splitter2 are, in fact, the circuit of Figure \ref{fig:reflectometer}, each one, in which the left direct coupler is substituted with the splitter.}
+    
+    The test signal is fed by SW1 to the common port of splitter 1, one arm (the reference channel) feeding a reference receiver for P1 (RX REF1) and the other (the test channel) connecting to P1 via the directional coupler DC1, PC1 and A1. 
+    
+    The third port of DC1 couples off the power reflected from P1 via A1 and PC1, then feeding it to test receiver 1 (RX TEST1). 
+    
+    As for now, this is a one-port reflectometer. If we connect A2 to PC2 instead of connecting it to ground, we are using a two port reflectometer.
+    
+    Similarly, signals leaving P2 pass via A2, PC2 and DC2 to RX TEST2. RX REF1, RX TEST1, RX REF2 and RXTEST2 are known as \textbf{coherent receivers} as they share the same reference oscillator, and they are capable of measuring the test signal's amplitude and phase at the test frequency. All of the complex receiver output signals are fed to a processor which does the mathematical processing and displays the chosen parameters and format on the phase and amplitude display.
+    \begin{Figure}
+        \centering
+        \includegraphics[width=\linewidth]{gfx/vnainternal}
+        \captionof{figure}{The internal structure of a VNA}
+        \label{fig:reflectometer_internal}
+    \end{Figure}
+\end{multicols}
+
+A network analyzer has connectors on its front panel, but the measurements are seldom made at the front panel: usually some test cables will connect from the front panel to the device under test (DUT).
+
+The length of those cables will introduce a time delay (and corresponding phase shift, affecting VNA measurements) and will also introduce some attenuation. The same is true for cables and couplers inside the network analyzer: moreover, all these factors will change with temperature.
+
+ Calibration usually involves measuring known standards and using those measurements to compensate for \textbf{systematic errors}. Only systematic errors can be corrected: random errors, such as connector repeatability, can not be corrected by the user calibration. 
+
+There are several different methods of calibration.
+\begin{itemize}
+    \item \textbf{SOLT} : which is an acronym for \textbf{Short, Open, Load, Thru}, is the simplest method. As the name suggests, this requires access to known standards with a short circuit, open circuit, a precision load (usually 50 ohms) and a through connection. The SOLT calibration method is useful for coaxial measurements but less suitable for waveguide measurements, where it is difficult to obtain an open circuit or a load, or for measurements on non-coaxial test fixtures, where the same problems with finding suitable standards exists.
+    \item \textbf{TRL(through-reflect-line calibration)}: This technique is useful for microwave, noncoaxial environments such as fixture, wafer probing, or waveguide. TRL uses a transmission line, significantly longer in electrical length than the through line, of known length and impedance as one standard. TRL also requires a high-reflection standard (usually, a short or open) whose impedance does not have to be well characterized, but it must be electrically the same for both test ports.
+\end{itemize}
+
+
+
+  
+
+
+
+The simplest calibration that can be performed on a network analyzer is a transmission measurement. This gives no phase information, and so gives similar data to a scalar network analyzer. The simplest calibration that can be performed on a network analyzer, whilst providing phase information is a 1-port calibration (S11 or S22, but not both). This accounts for the three systematic errors which appear in 1-port reflectivity measurements:
+
+Directivity-error resulting from the portion of the source signal that never reaches the DUT.
+Source match?errors resulting from multiple internal reflections between the source and the DUT.
+Reflection tracking-error resulting from all frequency dependence of test leads, connections, etc.
+In a typical 1-port reflection calibration, the user measures three known standards, usually an open, a short and a known load. From these three measurements the network analyzer can account for the three errors above.
+
+A more complex calibration is a full 2-port reflectivity and transmission calibration. For two ports there are 12 possible systematic errors analogous to the three above. The most common method for correcting for these involves measuring a short, load and open standard on each of the two ports, as well as transmission between the two ports.
+
+\newsubtopic{Detector types}
+
+The detector is the circuit that actually converts the signal in something readable by the processor, as in Figure \ref{fig:reflectometer_internal}.
+There are two types of reflectometers (network analyzers):
+\begin{itemize}
+    \item Scalar analyzer
+    \item Vector analyzer
+\end{itemize}
+
+The scalar analyzer only detects intensity, but loses completely any information regarding phase. 
+
+The vector analyzer has the capability of detecting the phases between the signals.
+
+\newsubsubtopic{Broadband Diode Detector}
+
+\coloredTablesOn
+\begin{splittedfancytable}{PROs}{CONs}
+    Easy to make it broadband&Has no phase information\\
+    Inepensive compared to tuned receiver & higher noise floor\\
+    Good for measuring frequency-translating devices& False responses\\
+    Improves dynamic range by increasing power & \\
+    Acceptable sensitivity / dynamic range & \\
+    \chline{Header}
+\end{splittedfancytable}
+\coloredTablesOff
+
+\newsubsubtopic{Narrowband detector - Tuned Receiver}
+
+\coloredTablesOn
+\begin{splittedfancytable}{PROs}{CONs}
+    Best sensitivity / dynamic range& Costly\\
+    Provides harmonic / spurious signal rejection & Complex \\
+    Improves dynamic range by increasing power,
+decreasing IF bandwidth, or averaging& \\
+    Trade off noise floor and measurement speed& \\
+    Harmonic immunity& \\
+    \chline{Header}
+\end{splittedfancytable}
+\coloredTablesOff
+
+\newsubtopic{Measuring error modeling}
+
+The errors can be divided in different categories:
+\begin{itemize}
+    \item \textbf{Systematic errors} that can be fixed with forward and reverse calibration, therefore 12 terms:
+        \begin{itemize}
+            \item \textbf{Crosstalk} between DUT ports 1 and 2 or in every high isolation device (switch, coupler) or high dynamic range devices (some filter stopbands)
+            \item Finite \textbf{directivity} of the couplers
+            \item \textbf{Source match} with couplers, switches and splitters
+            \item \textbf{Load match}, the receiver with the rest of the instrument
+            \item Transmission frequency response
+            \item Reflection frequency response
+        \end{itemize}
+    \item \textbf{Random errors}, that can't be corrected:
+        \begin{itemize}
+            \item Instrument noise
+            \item Connector and switch repeatability
+        \end{itemize}
+    \item \textbf{Drift errors}, due to system performance changing after a calibration has been done, primarly caused by temperature variation.
+\end{itemize}
+
+\newsubtopic{Crosstalk issues calculations}
+
+Crosstalk over the DUT gives problems to the readings of $S_{12}$ and $S_{21}$: it sums in phase and anti-phase with these values, depending on the frequency. It does not modify the readings of $S_{11}$ and $S_22$.
+
+To give a numeric estimate of the influence of crosstalk on the reading, we could pretend to know the value of $S_{21}$ and, with this, adding a contribute $C$, due to crosstalk. Therefore
+\begin{equation}
+    b_4=(S_{21}+C)\cdot k \cdot a_1
+    \label{eq:crosstalk_error}
+\end{equation}
+
+In which $C=c\cdot e^{\varphi(f)}$ is a complex number with modulus $c$ equal to the \textbf{crosstalk attenuation} (how much of the signal 1 goes to port 2 without going through the DUT) and frequency-variable phase. $k$ is the coupler's coupling factor, and can will be compensated by the instrument, because it's a construction parameter.
+
+Given Eq.\ref{eq:crosstalk_error}, we can now estimate the measured $S_12$, with
+\begin{equation}
+    S_{12Measured}=S_{12Real}+C=S_{12Real}+c\cdot e^{\varphi(f)}
+\end{equation}
+
+
+
+
+\newpage
+\newtopic{Power Sensors}
+In RF we measure power, because is constant: voltage and current are variable through space.
+We can measure power with two different types of sensors
+\begin{itemize}
+    \item Thermal sensors, in which power is measured by estimating the heating:
+    \begin{itemize}
+        \item Calorimeter
+        \item Bolometer (thermsistor)
+        \item Thermocouples
+    \end{itemize}
+\item Non-linear devices, in which power is measured by reading a voltage after a non-linear conversion:
+\begin{itemize}
+    \item Diodes
+\end{itemize}
+\end{itemize}
+
+\newsubtopic{Calorimeter}
+
+\coloredTablesOn
+\begin{splittedfancytable}{PROs}{CONs}
+    The most accurate, used in national standards and calibrations&Very long time constant, not suitable for every case.\\
+    In some versions, it can work also with big amounts of power & It can be quite big.\\
+    
+    \chline{Header}
+\end{splittedfancytable}
+\coloredTablesOff
+
+\newsubsubtopic{Single calorimeter}
+
+It is just a thermally isolated part of a waveguide, a load, a liquid and a temperature sensor.
+
+When the RF power reaches the calorimeter, it heats up the liquid and the power can be retrieved from
+\begin{equation}
+P= J\cdot c \cdot m \cdot \frac{dT}{dt}+\frac{T}{R_{th}}
+\end{equation}
+in which $P$ is the RF power to be measured, $J=4.18\cdot 10^3 \frac{J}{kcal}$ is the conversion between joule and calories, $c$ is the specific heat of the liquid (for water $1\frac{kcal}{Kg\cdot \textcelsius}$)
+
+\newsubsubtopic{Twin calorimeters}
+
+\begin{multicols}{2}
+    This device uses two calorimeters to compare the RF power connected to one calorimeter with a DC power connected to the other.
+    
+    When the temperature difference is zero, it means that the two calorimeters are receiving the same power, and this gives the RF power measurement.
+    
+    The formula to retrieve the power from the calorimeter is the same as before, but it could easily obtained by the DC voltage and current applied.  
+    \linebreak
+    \begin{Figure}
+        \centering
+        \includegraphics[width=0.5\linewidth]{gfx/twincalorimeters}
+        \captionof{figure}{A twin calorimeter}
+        \label{fig:twincalorimeter}
+    \end{Figure}
+\end{multicols}
+
+\newsubsubtopic{Flow calorimeter}
+
+This device can handle a big amount of power and is composed by a quartz tube carrying flowing water.
+
+The power into the waveguide can be calculated by measuring the temperature of the water before and after the the calorimeter: the temperature rise is proportional to the hitting power. The formula is
+\begin{equation}
+    P=q\cdot c\cdot (T_2-T_1)\cdot J
+\end{equation}
+
+in which $q$ is the mass fluid flow rate, $c$ is the liquid specific heat,  $J$ the conversion between joule and calories, and $T_2-T_1$ the temperature difference.
+
+In this case, like in the one of the twin calorimeters, the RF heating can be compared to a DC heating by means of heating wires within the quartz tube: this provides an identical temperature distribution, that can be used for calibration.
+
+\pagebreak
+
+\newsubtopic{Bolometer}
+
+\coloredTablesOn
+\begin{splittedfancytable}{PROs}{CONs}
+    Very sensitive&Errors due to mismatch: the \textit{available power} could not be the maximum.\\
+    Good resolution&Errors due to substitution: DC and RF power do not give the same effect in the bolometer\\
+    Sensitive to any form of energy&Errors due to efficiency: a small part of the RF power can be dissipated on the guide walls and supports.\\
+    Allows the readings of pulsed sources& \\
+    \chline{Header}
+\end{splittedfancytable}
+\coloredTablesOff
+
+The bolometers are resistors very sensitive to temperature variations and they are generally incorporated into a Wheatstone bridge.
+
+
+
+\begin{multicols}{2}
+    A dc bias current (given by $E_2$, in Figure \ref{fig:bolometer}) is applied to the thermsistor to raise its temperature via Joule heating, such that the \textbf{resistance is matched} to the waveguide characteristic impedance. After applying microwave power, the \textbf{bias current is reduced} to return the bolometer to its (matched) resistance in the absence of microwave power. The change in the dc power is then equal to the absorbed microwave power. To reject the effect of ambient temperature changes, the active (measuring) element is in a bridge circuit with an (other) identical element not exposed to microwaves; variations in temperature common to both elements do not affect the accuracy of the reading. In this case we talk about a \textbf{balanced system}. The average response time of the bolometer allows convenient measurement of the power of a pulsed source.
+   \begin{Figure}
+       \centering
+       \includegraphics[width=0.8\linewidth]{gfx/bolometer}
+       \captionof{figure}{The scheme of a bolometer}
+       \label{fig:bolometer}
+   \end{Figure}
+\end{multicols}
+The power applied to the bridge (when balanced) is given by
+\begin{equation}
+    P_{DC}=\left(\frac{\left. V_{E_2}\right|_{DC}}{2}\right)^2\cdot\frac{1}{R_0}=\frac{\left.V_{E_2}^{2}\right|_{DC}}{4\cdot R_0}
+\end{equation}
+And the power of the RF signal applied to the thermsistors can be obtained byt the voltage difference between the DC and the "RF on" condition, apart from a $k$ constant, called \textit{calibration efficiency}:
+\begin{equation}
+P_{RF}=\frac{\left.V_{E_2}^{2}\right|_{DC}-\left.V_{E_2}^{2}\right|_{RF}}{4\cdot k\cdot R_0}
+\end{equation}
+
+\newsubsubtopic{Microcalorimeters}
+
+Microcalorimeters are used to calibrate thermistor type sensors.
+
+A microcalorimeter consists of a thin-walled line section connected to the thermistor sensor being calibrated. A thermopile measures the temperature difference between the thermistor and a dummy sensor or temperature reference. By measuring the temperature change due to the RF loss in the sensor and the input line, the efficiency of the sensor can be calculated.
+
+\newsubsubtopic{Available power}
+\begin{multicols}{2}
+    For a low frequency circuit, as in Figure \ref{fig:availablepower}, formed by a generator with impedance $Z_G$ and voltage $e_S$ (Thevenin equivalent), the power delivered to a load $Z_L$ is maximum when $Z_L = Z_G^*$ (complex conjugate).
+    
+    \begin{multicols}{2}
+        
+        In RF, the same situation arises, but this time is connected to the reflection coefficient $\Gamma$.
+        As for low frequency, we can demonstrate that the power to the load is maximum when the generator is in \textbf{conjugate matching}.
+        \begin{Figure}
+            \centering
+            \includegraphics[width=0.9\linewidth]{gfx/availablepowergamma}
+            \captionof{figure}{The RF case}
+            \label{fig:availablepowergamma}
+        \end{Figure}
+    \end{multicols}
+That is, the load reflection coefficient is equal to the complex conjugate of the reflection coefficient of the generator:
+\begin{equation}
+    \Gamma_L=\Gamma_G^*
+\end{equation}
+\begin{Figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{gfx/availablepower}
+    \captionof{figure}{The power from a generator to a load}
+    \label{fig:availablepower}
+\end{Figure}
+\end{multicols}
+And the power transferred to the load is the maximum power transferable $P_0$, equal to
+\begin{equation}
+P_{generator}=\frac{P_{load}}{1-\left|\Gamma_G\right|^2}
+\end{equation}
+
+\newsubsubtopic{Thermocouples}
+
+Thermocouples are based on the fact that dissimilar metals generate a voltage due to temperature differences at a hot and a cold junction of the two metals.
+
+Typical values for the thermoelectric power are in the range of $250\mu V/$\textcelsius$ $ and, with its $0.4$\textcelsius$/mW$  thermal resistance, yelds to $100\mu V/mW$. Therefore
+\begin{equation}
+    S=P_{TH}\cdot R_{TH}
+\end{equation}
+
+\textbf{Warning: if the junction reaches 500\textcelsius, differential thermal expansion causes the chip to fracture.}
+
+Thermal resistance combines with thermal capacity to form the thermal time constant
+\begin{equation}
+\tau_{TH}=R_{TH}\cdot C_{TH}
+\end{equation}
+
+In the case of thermistor sensors, the DC-substitution process keeps the tiny bead of thermistor at a constant temperature, backing off bias power as RF power is added. This naturally induces minor deviations in the detection characteristic.
+
+In the case of thermocouple sensors, as power is added, the detection microcircuit substrate with its terminating resistor runs at higher temperatures as the RF power increases. Thermocouple power meters solve the need for sensitivity calibration by incorporating a 50 MHz power-reference oscillator whose output power is controlled with great precision ($\pm0.4\%$).
+
+\newsubtopic{Diode sensors}
+
+\coloredTablesOn
+\begin{splittedfancytable}{PROs}{CONs}
+   Good long term stability&Requires a reference source\\
+   Reasonably linear at low levels&Poor linearity at high levels\\
+   High dynamic range &Can be inaccurate for modulated and distorted signals\\
+   Easily integrated in automatic systems &\\
+   Fast response allowing for envelope power to be tracked&\\
+   \chline{Header}
+\end{splittedfancytable}
+\coloredTablesOff
+
+
+\newsubsubtopic{Single Diode sensors}
+\begin{multicols}{2}
+    \coloredTablesOn
+    \begin{fancytable}{Key factors}
+        \texttt{Sensitivity}& Between $0.5mV/\mu W$ and $1mV/\mu W$\\
+        \texttt{Noise Power Level}& Around $-70dBm$\\
+        \texttt{Maximum Power} & Less than $-20dBm$ \\
+        \texttt{Dynamic Range} & Usually $90dB$\\
+        \chline{Header}
+    \end{fancytable}
+    \coloredTablesOff
+    \begin{Figure}
+        \centering
+        \includegraphics[width=0.6\linewidth]{gfx/singlediode}
+        \captionof{figure}{Multiple diods in series}
+        \label{fig:single_diode}
+    \end{Figure}
+\end{multicols}
+From the diode equation $I_d=I_s\cdot(e^(\frac{V_d}{kT})-1)$, we could develop the Taylor expansion near the zero and, for very small voltage values, we have a linear behavior given by $I_d=I_S\cdot(\frac{V_d}{n\cdot V_T}+\dots)$.
+
+In this approximation, with $V_d<<V_{T}$, the DC component of the current, equal to the average value of I, is equal to
+\begin{equation}
+    I_{DC}=\frac{V_{IN}^2}{4\cdot(n\cdot V_T)^2}
+\end{equation}
+The differential resistance of the diode in this condition is usually a couple of $k\Omega$ and is given by
+\begin{equation}
+    \frac{1}{R_D}=\frac{\partial I}{\partial V}=\frac{I_S}{n\cdot V_T}
+\end{equation}
+
+The power in input, considering a sinusoidal input $V_{IN}$, is given by
+\begin{equation}
+    P_{in}=\frac{V_{IN}^2}{2\cdot R_0}
+    \label{eq:power_input_diode}
+\end{equation}
+
+The voltage coming out of this circuit is proportional to the power applied to the input, following this equation
+\begin{equation}
+    V_{out}=\frac{R_0}{2\cdot n\cdot V_t}P_{RF}=Sensitivity\cdot P_{RF}
+\end{equation}
+
+\textbf{This approximation and linearity are valid as long as the voltage on the diode is lower than $V_T$, that is, $25,4mV$, therefore the maximum acceptable voltage in input (and, therefore, power, from Eq.\ref{eq:power_input_diode}) is limited by this. For the exercises, the power per single diode is $-20dbm$}.
+
+\pagebreak
+
+\newsubsubtopic{Series Diode sensors}
+\begin{multicols}{2}
+    
+    \coloredTablesOn
+    \begin{fancytable}{Key factors}
+        \texttt{Sensitivity}& Divided by $N$\\
+        \texttt{Noise Power Level}& Grows by $10log_{10}(N)$\\
+        \texttt{Maximum Power} & Increased by $N^2$ \\
+        \texttt{Dynamic Range} & Increased by$10log_{10}(N)$\\
+        \chline{Header}
+    \end{fancytable}
+    \coloredTablesOff
+    \begin{Figure}
+        \centering
+        \includegraphics[width=\linewidth]{gfx/seriesdiods}
+        \captionof{figure}{Multiple diods in series}
+        \label{fig:series_diods}
+    \end{Figure}
+\end{multicols}
+On each diode we have $V_{1diode}=\frac{V_{RF}}{N}$ volts, equally splitted.
+
+The generated current is the same for each diode: \begin{equation}
+I_{1 diode}=I_s\cdot\frac{V_{1d}^2}{4\cdot(nV_T)^2} \to I_{diodes}=\frac{V_{RF}^2}{N^2\cdot 4\cdot(nV_T)^2}= \frac{I_{1diode}}{N^2}
+\end{equation}
+The output voltage is therefore:
+\begin{equation}
+    V_{out}=I_{diodes}\cdot R_{diode}\cdot N= \frac{R_0}{2n\cdot V_T}\cdot \frac{P_{RF}}{N}=Sensitivity\cdot \frac{P_{RF}}{N} 
+\end{equation}
+The series of more than 10 diodes is unlikely, therefore usually resistors are used do reduce the input power.
+
+\newsubsubtopic{Differential Diode sensors} 
+
+\begin{multicols}{2}
+    
+    \coloredTablesOn
+    \begin{fancytable}{Key factors}
+        Improvement&Thermoelectric voltages resulting from the joining of
+        dissimilar metals, a serious problem below $-60 dBm$, are
+        cancelled.\\
+        Improvement&Measurement errors caused by even-order harmonics in
+        the input signal are suppressed due to the balanced
+        configuration.\\
+        \texttt{Sensitivity}& Multiplied per $2/N$, if more than one diode per part.\\
+        \texttt{Noise Power Level}& 1 or 2 dB lower\\
+        \texttt{Maximum Power} & Increased by $2\cdot N^2$ (to be verified) \\
+        \texttt{Dynamic Range} & - \\
+        \chline{Header}
+    \end{fancytable}
+    \coloredTablesOff
+    \begin{Figure}
+        \centering
+        \includegraphics[width=\linewidth]{gfx/differentialdiodes}
+        \captionof{figure}{Differential diodes schematic}
+        \label{fig:differential_diods}
+    \end{Figure}
+\end{multicols}
+
+Common-mode noise or interference riding on the ground plane is cancelled at the detector output. This is not RF noise but metallic connection noises on the meter side.
+
+\newsubsubtopic{Alternative Diode sensors}
+  
+Circuit from an exam, comparative to a Series Diode sensor, with $N=2$
+\begin{multicols}{2}
+    
+    \coloredTablesOn
+    \begin{fancytable}{Key factors}
+        \texttt{Sensitivity}& Multiplied per $4$\\
+        \texttt{Noise Power Level}& Same as the series diodes\\
+        \texttt{Maximum Power} & Divided by $4$ \\
+        \texttt{Dynamic Range} & The same as series diodes, but it shifts.\\
+        \chline{Header}
+    \end{fancytable}
+    \coloredTablesOff
+    \begin{Figure}
+        \centering
+        \includegraphics[width=\linewidth]{gfx/diodesvariation}
+        \captionof{figure}{Almost differential}
+        \label{fig:alternative_diods}
+    \end{Figure}
+\end{multicols}
+The two diodes are both exposed to the RF voltage on R2. It is a sort of differential scheme, therefore the maximum power is 4 time lower than the series diode configuration, while the sensitivity is 4 times higher (a factor 2 is due to the addition of the two voltage across the diodes, another factor 2 is due to the sensitivity of the single diode, twice that of the series). The range is shifted.
+
+\pagebreak
+\newtopic{Impedance meters}
+\newsubtopic{RF I-V Impedance meter}
+
+\coloredTablesOn
+\begin{splittedfancytable}{PROs}{CONs}
+    High accuracy (1\%
+typ.) and wide impedance range at high frequencies&Operating frequency range is limited by transformer used in test head\\
+    
+\chline{Header}    
+\end{splittedfancytable}
+\coloredTablesOff
+\begin{multicols}{2}
+    \coloredTablesOn
+    \begin{fancytable}{Key factors}
+        \texttt{Frequency range}& 1MHz to 3GHz\\
+        \texttt{Oscillators}&One with indirect synthesis via PLL and the other directly generated from the first.\\
+        \texttt{Range of impedances}& Same precision on the whole range.\\
+        
+        \chline{Header}
+    \end{fancytable}
+    \coloredTablesOff
+    
+    The OSC is a tunable oscillator, usually implemented by \textit{indirect synthesis} with a PLL. It generates a signal that goes through the DUT.
+    The mixer is used to downconvert the signal to a value that works with the ADC, thanks to the Local Oscillator (LO): this one is directly obtained from OSC, realized using a mixer and a bandpass filter.
+    \linebreak
+   \begin{Figure}
+       \centering
+       \includegraphics[width=0.8\linewidth]{gfx/rfivmeter}
+       \captionof{figure}{RF I-V}
+       \label{fig:rfiv_meter}
+   \end{Figure}
+\end{multicols}
+
+\texttt{To be completed}
+
+\pagebreak
+\newtopic{Mixers}
+
+A mixer is a circuit used for frequency conversion , needful for telecommunications, but also for radiofrequency measurements. The typical operations of a mixer are modulation, demodulation and frequency multiplication.
+
+The basic concept that lies behind a mixer is the \textit{ prosthaphaeresis} (product of sum) formula:
+\begin{equation}
+\sin(2\cdot\pi\cdot f_1 \cdot t)\sin (2\cdot\pi\cdot f_2 \cdot t)={\frac {\cos(2\cdot\pi\cdot (f_1-f_2) \cdot t)-\cos(2\cdot\pi\cdot (f_1+f_2) \cdot t)}{2}}
+\end{equation}
+The result is the sum of two sinusoidal signals, one at the sum $f_1 + f_2$ and one at the difference $f_1 - f_2$ of the original frequencies.
+
+
+To demonstrate mathematically how a nonlinear component can multiply signals and generate heterodyne frequencies, the nonlinear function F can be expanded in a power series (MacLaurin series): $F(v)=\alpha_{1}v+\alpha_{2}v^{2}+\alpha_{3}v^{3}+\cdots $
+
+Applying the two sine waves at frequencies $\omega_1 = 2\pi f_1$ and $\omega_2 = 2\pi f_2$ to this device:
+\begin{equation}
+\begin{array}{l}
+v_{\text{out}}=F(A_{1} sin(\omega_{1}t)+A_{2}sin(\omega_{2}t))=\alpha _{1}(A_{1}sin(\omega _{1}t)+A_{2}(sin \omega _{2}t))+\alpha _{2}(A_{1}sin(\omega _{1}t)+A_{2}sin (\omega _{2}t))^{2}+\cdots= \\
+
+=\alpha _{1}(A_{1}sin( \omega _{1}t)+A_{2}sin (\omega _{2}t))+\alpha _{2}(A_{1}^{2}sin ^{2}(\omega _{1}t)+{\bf 2A_{1}A_{2}sin(\omega _{1}t)sin(\omega _{2}t)}+A_{2}^{2}sin ^{2}(\omega _{2}t))+\cdots 
+\end{array}
+\end{equation}
+
+
+\vspace{3mm}
+
+\begin{multicols}{2}
+    \coloredTablesOn
+    \begin{fancytable}{Parameters}
+        \texttt{Conversion Loss}	&Is the difference in dB between the received signal power entering the RF-port and the output IF power of the desired IF sideband exiting the IF-port.\\
+        \texttt{Isolation} & Interport isolation is the measure of insertion loss between any two mixer ports.\\
+        \texttt{Noise Figure}&is defined as the ratio between the input and output S/N ratio.\\
+        \texttt{$1dB$ Compression point}&the input RF power level at which conversion loss increases by $1dB$\\
+        \texttt{Dynamic Range}&Dynamic range is measured in dB and is the input RF power range over which the mixer is useful. The lower limit of dynamic range is the noise floor, which depends on the mixer and system. The upper limit of dynamic range is generally taken to be the mixer 1-dB compression point.\\
+        \texttt{Intercept Point}&Measured in $dBm$, input intercept point (IIP) is the level of input RF power at which the output power levels of the undesired intermodulation products and IF products would be equal.This output power level is the output intercept point (OIP), and equals the input intercept point minus conversion loss.\\
+        \texttt{Matching}&Typically indicated by the input VSWR, as a function of the frequency\\
+        \chline{Header}    
+    \end{fancytable}
+    \coloredTablesOff
+    
+    \begin{Figure}
+        \centering
+        \includegraphics[width=\linewidth]{gfx/freqconv}
+        \captionof{figure}{Frequency Conversion}
+        \label{fig:frequency_conversion}
+    \end{Figure}
+\begin{Figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{gfx/balun}
+    \captionof{figure}{A BALUN, can be printed on a circuit board or using a wire-wound transformer.}
+    \label{fig:balun}
+\end{Figure}
+\end{multicols}
+
+\newsubtopic{BALUN}
+\begin{multicols}{2}
+    A balun is used to transform a signal between BALanced and UNbalanced modes. An unbalanced signal is referenced to a ground plane, as in a coaxial cable or microstrip. A balanced signal is carried on two lines and is not referenced to a ground plane. 
+    Each line can be considered as carrying identical signal but with 180° of phase.
+    
+    Miniature wirewound transformers are commercially available covering frequencies from low kHz to beyond 2GHz. They are often realized with a \textbf{centre- tapped secondary winding} (not shown in Figure \ref{fig:balun}, but present in Figure \ref{fig:double_balanced_mixer}).
+    
+\end{multicols}
+
+\pagebreak
+\newsubtopic{Unbalanced Mixer}
+
+An unbalanced mixer, in addition to producing a product signal, \textbf{allows both input signals} to pass through and appear as components in the output. This means that you won't get only the product at the output, but also the inputs.
+\begin{multicols}{2}
+    \coloredTablesOn
+    \begin{splittedfancytable}{PROs}{CONs}
+       Very simple	&It does not attenuate LO AM noise\\
+       Broad bandwidth & Needs expensive filters\\
+        
+        \chline{Header}    
+    \end{splittedfancytable}
+    \coloredTablesOff
+    
+    \begin{Figure}
+        \centering
+        \includegraphics[width=0.8\linewidth]{gfx/single-device-mixer}
+        \captionof{figure}{Single Diode Mixer}
+        \label{fig:single_device_mixer}
+    \end{Figure}
+\end{multicols}
+
+\newsubtopic{Single Balanced Mixer}
+
+A single balanced mixer is arranged with one of its inputs applied to a balanced (differential) circuit so that either the local oscillator (LO) or signal input (RF) is suppressed at the output, but not both.
+\begin{multicols}{2}
+    \coloredTablesOn
+    \begin{splittedfancytable}{PROs}{CONs}
+        Still simple	& Greater LO power\\
+        Provides isolation between IF and LO  &\\
+        Provide either LO or RF Rejection (20-30 dB) at the IF output&\\
+        Rejection of certain mixer spurious products depending on the exact configuration	& \\
+        Suppression of Amplitude Modulated (AM) LO noise&\\
+        
+        \chline{Header}    
+    \end{splittedfancytable}
+    \coloredTablesOff
+    
+    \begin{Figure}
+        \centering
+        \includegraphics[width=\linewidth]{gfx/single-balanced-mixer}
+        \captionof{figure}{Single Balanced Mixer}
+        \label{fig:single_balanced_mixer}
+    \end{Figure}
+\end{multicols}
+
+\newsubtopic{Double Balanced Mixer (Ring Modulator)}
+
+A double balanced mixer has both its inputs applied to differential circuits, so that neither of the input signals and only the product signal appears at the output (this is true, in the real mixer, only for the even armonics!). Double balanced mixers are more complex and require higher drive levels than unbalanced and single balanced designs.
+\begin{multicols}{2}
+    \coloredTablesOn
+    \begin{splittedfancytable}{PROs}{CONs}
+        All ports of the mixer are inherently isolated from each other	& Greater LO power\\
+        No more need for demanding filters&Require two baluns\\
+        It can be realized using two single device mixer types connected via 90 degree hybrid or 180 degree hybrid circuit&Relative high noise figure, about the same as the conversion loss\\
+        Increased linearity compared to singly balanced& Diodes need to be well "matched"\\
+        Consumes no power except for the losses incurred in conversion&\\
+        Consumes less power due to the fact that armonics that are not being used don't need to be filtered afterwards, because the mixer already does it.&\\
+        
+        \chline{Header}    
+    \end{splittedfancytable}
+    \coloredTablesOff
+    
+    \begin{Figure}
+        \centering
+        \includegraphics[width=0.8\linewidth]{gfx/double-balanced-mixer}
+        \captionof{figure}{Double Balanced Mixer - Ring version}
+        \label{fig:double_balanced_mixer}
+    \end{Figure}
+\end{multicols}
+
+\newpage
+\newtopic{Spectrum Analyzers}
+
+\vspace{5mm}
+\begin{multicols}{2}
+    
+    \coloredTablesOn
+    \begin{fancytable}{Key Parameters}
+        \texttt{RBW / IF Filter}& The resolution bandwidth represents the smallest signal that can be resolved, taken at -3dB from the peak. Two peaks separated by 10khz can be resolved with RBW\textless=10khz (but will be slightly visible), by reducing even further the RBW, more peaks can be visible, as shown in Figure \ref{fig:rbw}.\\
+        \texttt{Selectivity}&It's the ratio between the width of a peak at -3db and at -60db, that is $S=\frac{BW|_{-60dB}}{BW_{-3dB}}$. Typical for analog systems is 15:1, while for digital is 5:1.\\
+        \texttt{Span}& Is the range of frequencies on the X axis.\\
+        \texttt{Ref level}&It's the maximum value on the Y axis.\\
+        \texttt{Attenuator}&Is a circuit that reduces the input signal to be compatible with the reference level. It should be always at the minimum value possible, because the level of the signal remains the same (the IF gain is simultaneously adjusted) but the S/N worsens by the same amount of the attenuator.\\
+        \texttt{Pre-selector}& It's a band-pass filter that pre-cleans the signal in order to reduce received (useless) power, and prevents \textit{unwanted} aliasing.\\
+        \texttt{Noise Figure}&Noise Figure is defined as the ratio between the instrument noise level and the thermal noise. The thermal noise is -174dBm/Hz.
+         Noise figure is independent of IF-filter bandwidth, while the displayed averaged noise level (DANL) on the analyzer changes with bandwidth.\\
+         \texttt{Sensitivity}&It's the smallest signal that can be measured, out of noise.\\
+         \texttt{Video filter} &It's a filter that clears the visualization, for better readability of the peaks.\\
+        \chline{Header}
+    \end{fancytable}
+    \coloredTablesOff
+    \begin{Figure}
+        \centering
+        \includegraphics[width=\linewidth]{gfx/rbw}
+        \captionof{figure}{Resolution Bandwidth and selectivity}
+        \label{fig:rbw}
+    \end{Figure}
+    \coloredTablesOn
+    \begin{fancytable}{Useful formulas}
+        \texttt{Filter Rise time}& Inversely proportional to its bandwidth $T=\frac{k}{RBW}$. $k$ is in the 2 or 3 range for the synchronously-tuned, near-Gaussian (analog) filters used in many analyzers. \\
+        \texttt{Equivalent points}& The number of equivalent points is given by $N=\frac{Span}{RBW}$\\
+        \texttt{Minimum sweep time}& For a correct measurement, the time needed is
+        
+        $ST=N\cdot T \approx \frac{3\cdot Span}{RBW^2}$
+        
+        Sweeping too fast will shift the frequencies to the right, resulting in an \textit{uncalibrated display}. An FFT spectrum analyzer has a faster sweep time, in the order of 
+        $ST=\frac{1}{RBW}$ but, in order to display the result, the FFT calculation time has to be added: it could estimated $<1ms$\\
+        \texttt{Noise Figure}&$NF=-DANL-10\cdot log(\frac{RBW}{1Hz})-(-174dBm/hz)$\\
+        \chline{Header}
+    \end{fancytable}
+    \coloredTablesOff
+\end{multicols}
+
+\begin{multicols}{2}    
+  
+\begin{Figure}
+    \centering
+    \includegraphics[width=0.98\linewidth]{gfx/noisefigure}
+    \captionof{figure}{Reference level remains constant but the noise rises, when changing input attenuation. }
+    \label{fig:noise_figure}
+\end{Figure}
+
+\begin{Figure}
+    \centering
+    \includegraphics[width=\linewidth]{gfx/rbwnoise}
+    \captionof{figure}{Reducing the RBW reduces the Noise Figure, because the noise applies on a smaller bandwidth.}
+    \label{fig:rbw_noise}
+\end{Figure}
+
+\end{multicols}
+
+\pagebreak
+\begin{multicols}{2}
+   \begin{Figure}
+       \centering
+       \includegraphics[width=\linewidth]{gfx/spectrumanalyzer}
+       \captionof{figure}{Heterodyne Spectrum Analyzer Scheme}
+       \label{fig:spectrum_analyzer}
+   \end{Figure}
+   \begin{Figure}
+       \centering
+       \includegraphics[width=\linewidth]{gfx/higherbands}
+       \captionof{figure}{Higher frequencies Spectrum Analyzer}
+       \label{fig:higher_bands}
+   \end{Figure}
+\end{multicols}
+The \textbf{phase noise} effect on the measurement is a larger signal at the bottom of the peak.
+
+
+
+
+
+
+
+
+\pagebreak
+\newtopic{Frequency Synthesizers}
+There are 3 different types of synthesizers:
+\begin{itemize}
+    \item \textbf{Direct synthesizers}, that apply standard mathematical operations $* / + -$ to the signal given by a crystal oscillator.
+    \item \textbf{Indirect synthesizers}, in which a voltage controlled oscillator (LC resonant) produces a wave locked in phase to a crystal oscillator.
+    \item \textbf{Digital synthesizers}, it is based on a dack reading from a truth table the values to synthesize the signal, controlled in time by a clock.
+\end{itemize}
+\coloredTablesOn
+\begin{splittedfancytable}{Figure of Merit}{Description}
+    \texttt{Operating frequency range}&Denotes the range of frequencies that can be generated by the synthesizer. It is specified in the units of Hz (MHz, GHz) by indicating the minimum and maximum frequencies generated by the synthesizer.\\
+    \texttt{Frequency resolution or step size }& Is the maximum frequency difference between two successive output frequencies.The operating frequency range and frequency resolution are fundamental synthesizer specifications set by a particular application.\\
+    \texttt{Frequency accuracy}&Indicates the maximum deviation between the synthesizer?s set output frequency and its actual output. Frequency accuracy is normally determined by the reference signal, which can be internal or external to the synthesizer. \\
+    \texttt{Switching or tuning speed }&Determines how fast the synthesizer transitions from one desired frequency to another and is defined as time spent by the synthesizer between these two states. \\
+    \texttt{Harmonics}&Harmonics are expressed in dBc (decibels relative to the carrier) and represent the power ratio of a harmonic to a carrier signal.\\
+    \texttt{Spurious signals}&Are undesired artifacts created by the synthesizer at some discrete frequencies that are not harmonically related to the output signal. \\
+    \texttt{Phase noise}&Is one of the major parameters that ultimately limits the performance of microwave systems. In general, phase noise is a measure of the synthesizer?s short- term frequency instability, which manifests itself as random frequency fluctuations around the desired tone.\\
+    \chline{Header}    
+\end{splittedfancytable}
+\coloredTablesOff
+
+
+
+\newsubtopic{Crystal Oscillators}
+
+A crystal oscillator is an electronic oscillator circuit that uses the mechanical resonance of a vibrating crystal of piezoelectric material to create an electrical signal with a precise frequency.
+
+There are various methods to increase the frequency accuracy and stability, that create different devices; the most common ones are:
+
+\begin{itemize}
+    \item \textbf{XO}, crystal oscillator, does not contain means for reducing the crystal's f vs. T characteristic (also called PXO-packaged crystal oscillator).
+    \item \textbf{TCXO}, temperature compensated crystal oscillator, in which, e.g., the output signal from a temperature sensor (e.g., a thermistor) is used to generate a correction voltage that is applied to a variable reactance (e.g., a varactor) in the crystal network. The reactance variations compensate for the crystal's f vs. T characteristic. Analog TCXO's can provide about a 20X improvement over the crystal's f vs. T variation.
+    \item \textbf{OCXO}, oven controlled crystal oscillator, in which the crystal and other temperature sensitive components are in a stable "oven" (the package) which is adjusted to the temperature where the crystal's $f$ vs. $T$ has zero slope. OCXO's can provide a \textgreater1000X improvement over the crystal's frequency vs. temperature variation.
+\end{itemize}
+
+
+\newsubtopic{DIRECT SYNTHESIZER}
+
+It requires a number of mixers, filters and switches, but the realized output shows almost the same spectral purity of the reference oscillator.
+
+
+\newsubsubtopic{Analog direct}
+
+The direct analog synthesizer is today?s most advanced technique, offering exceptional tuning speed and phase-noise characteristics. The output signal is obtained by mixing input frequencies followed by switched filters; these input frequencies can be created by mixing, dividing, and multiplying the output of low- noise fixed-frequency oscillators.
+
+\coloredTablesOn
+\begin{splittedfancytable}{PROs}{CONs}
+    Exceptional tuning speed	& Limited frequency coverage\\
+    Low phase noise&Large step size\\
+    &Large number of mixing products to be filtered\\
+    &Cross coupling between channels and stages\\
+    &Costly\\
+    \chline{Header}    
+\end{splittedfancytable}
+\coloredTablesOff
+
+
+\newsubsubtopic{Digital Direct}
+
+Direct digital synthesizers utilize digital signal processing to construct an output signal waveform in the time domain piece-by-piece from an input (called clock) signal.
+
+\coloredTablesOn
+\begin{splittedfancytable}{PROs}{CONs}
+    Very low settling time	& Imperfect approximation of the waveform\\
+    Very small step size&Spurios signals due to trunction\\
+    Low phase noise&Mixing products that cannot be filtered\\
+    \chline{Header}    
+\end{splittedfancytable}
+\coloredTablesOff
+
+\newsubtopic{INDIRECT SYNTHESIZER: Phase-Locked Loop (PLL)}
+
+\begin{multicols}{2}
+    A phase-locked loop or phase lock loop abbreviated as PLL is a control system that generates an output signal whose phase is related to the phase of an input signal. 
+    There are several different types; the simplest is an electronic circuit consisting of:
+    \begin{itemize}
+        \item a variable frequency oscillator
+        \item a phase detector
+        \item a filter
+        \item a reference frequency in $V_i$
+    \end{itemize}
+    The oscillator generates a periodic signal, and the phase detector compares the phase of that signal with the phase of the input periodic signal, adjusting the oscillator to keep the phases matched.
+  \begin{Figure}
+      \centering
+      \includegraphics[width=0.8\linewidth]{gfx/PLLsimple}
+      \captionof{figure}{The simplest PLL}
+      \label{fig:PLL_simple}
+  \end{Figure}
+\end{multicols}
+Keeping the input and output phase in lock step also implies keeping the input and output frequencies the same. Consequently, in addition to synchronizing signals, a phase-locked loop can track an input frequency, or it can generate a frequency that is a multiple of the input frequency. These properties are used for computer clock synchronization, demodulation, and frequency synthesis.
+\begin{Figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{gfx/fullPLL}
+    \captionof{figure}{A scheme of a complete PLL}
+    \label{fig:PLL_full}
+\end{Figure}
+
+A \textbf{phase detector} compares two input signals and produces an \textbf{error signal} which is proportional to their phase difference. The error signal is then \textbf{low-pass filtered} and used to drive a Voltage Controlled Oscillator (VCO, that is, a resonant LC circuit) which creates an output phase. The output is fed through an optional divider back to the input of the system, producing a \textbf{negative feedback loop}. If the output phase drifts, the error signal will increase, driving the VCO phase in the opposite direction so as to reduce the error. Thus the output phase is locked to the phase at the other input. This input $F_I$ is called the reference.
+
+
+\coloredTablesOn
+\begin{splittedfancytable}{PROs}{CONs}
+    All spurs associated with the direct architectures are generally absent	& Slower tuning\\
+    Low cost&Considerably higher phase noise than direct\\
+    Very small&Limited step size\\
+    \chline{Header}    
+\end{splittedfancytable}
+\coloredTablesOff
+
+
+\newsubsubtopic{Phase detector}
+
+A phase detector (PD) generates a voltage, which represents the phase difference between two signals. In a PLL, the two inputs of the phase detector are the reference input and the feedback from the VCO. 
+\begin{multicols}{2}
+\begin{Figure}
+    \centering
+    \includegraphics[width=0.6\linewidth]{gfx/PLL-detectorFase-XOR}
+    \captionof{figure}{A XOR detector}
+    \label{fig:PD_XOR}
+\end{Figure}
+The PD output voltage is used to control the VCO such that the phase difference between the two inputs is held constant, making it a negative feedback system. There are several types of phase detectors in the two main categories of analog and digital.
+
+An analog phase detector can be a mixer, for example a \textbf{double balanced mixer} like the one in Figure \ref{fig:double_balanced_mixer}, whose output is a signal equal to the sum and the difference of the inputs: if the frequency and phase is the same, the difference is null and the sum can be erased with a \textbf{low pass filter}.
+
+A digital phase detector can be a XOR gate, as a simple yet effective system: when the are in phase (11 or 00) the output is null, elsewhere will be 1, with the \textbf{duration of the pulse} proportional to the phase shift.
+\end{multicols}
+
+
+\newsubsubtopic{Low-pass filter}
+
+The primary function of this part is to determine the stability of the feedback loop: disturbances or system startup could diverge without this block. Common considerations are the range over which the loop can achieve lock (pull-in range, lock range or capture range), how fast the loop achieves lock (lock time, lock-up time or settling time) and damping behavior. Depending on the application, this may require one or more of the following: a simple proportion (gain or attenuation), an integral (low pass filter) and/or derivative (high pass filter). Loop parameters commonly examined for this are the loop's gain margin and phase margin.
+
+The second common consideration is limiting the amount of reference frequency energy (ripple) appearing at the phase detector output that is then applied to the VCO control input. This frequency modulates the VCO and produces FM sidebands commonly called "reference spurs".
+
+The design of this block can be dominated by either of these considerations, or can be a complex process juggling the interactions of the two. Typical trade-offs are: increasing the bandwidth usually degrades the stability or too much damping for better stability will reduce the speed and increase settling time. Often also the phase-noise is affected.
+
+\newsubsubtopic{Oscillator}
+
+This could be a VCO, in case of analog PLL or a Numerically Controlled Oscillator, in case of Digital PLLs.
+\begin{multicols}{3}
+    \begin{Figure}
+        \centering
+        \includegraphics[height=5cm]{gfx/VCO}
+        \captionof{figure}{An analog VCO}
+        \label{fig:VCO}
+    \end{Figure}
+\begin{Figure}
+    \centering
+    \includegraphics[height=5cm]{gfx/NCO}
+    \captionof{figure}{A digital NCO}
+    \label{fig:NCO}
+\end{Figure}
+\end{multicols}
+\newsubsubtopic{Feedback Loop}
+
+Some PLLs also include a divider between the reference clock and the reference input to the phase detector. If the divider in the \textbf{feedback path} divides by N and the \textbf{reference input divider} divides by M, it allows the PLL to multiply the reference frequency by $\frac{N}{M}$
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%END DOCUMENT
+\end{document}          
+
